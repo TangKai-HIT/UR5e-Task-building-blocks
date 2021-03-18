@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find ur_e_gazebo)/launch/ur5e.launch">
+        <arg name="limited" default="true"/>
+    </include>
+
+    <include file="$(find ur5_e_moveit_config)/launch/ur5_e_moveit_planning_execution.launch">
+        <arg name="limited" default="true"/>
+    </include>
+
+    <include file="$(find ur5_e_moveit_config)/launch/moveit_rviz.launch">
+        <arg name="config" default="true"/>
+    </include>
+</launch>

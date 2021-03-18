@@ -1,0 +1,1 @@
+rosrun moveit_kinematics create_ikfast_moveit_plugin.py my_ur5e manipulator my_ur5e_ikfast_manipulator_plugin /home/anhao/UR5e_ws/src/my_ur5e_ikfast_manipulator_plugin/src/my_ur5e_manipulator_ikfast_solver.cpp

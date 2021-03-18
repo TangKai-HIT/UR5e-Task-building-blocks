@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- RG2 griper controll service -->
+    <node name="rg2_ctrl_server" pkg="ur5e_rg2_task" type="rg2_ctrl_server.py" output="screen"/>
+
+    <!-- ur5e pick and place blocks task  -->
+    <node name="my_ur5e_motion_ctrl" pkg="ur5e_rg2_task" type="my_ur5e_motion_ctrl" output="screen"/>
+</launch>

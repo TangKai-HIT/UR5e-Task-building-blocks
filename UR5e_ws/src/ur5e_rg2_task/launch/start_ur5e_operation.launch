@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+    <include file="$(find ur_robot_driver)/launch/ur5e_bringup.launch">
+        <arg name="robot_ip" default="192.168.83.2"/>
+        <arg name="kinematics_config" default="/home/anhao/my_robot_calibration.yaml"/>
+    </include>
+    
+    <include file="$(find ur5_e_moveit_config)/launch/ur5_e_moveit_planning_execution.launch">
+        <arg name="limited" default="true"/>
+    </include>
+
+    <include file="$(find ur5_e_moveit_config)/launch/moveit_rviz.launch">
+        <arg name="config" default="true"/>
+    </include>
+
+    <!-- dash board client service -->
+    <node name="dashboard_client" pkg="ur_robot_driver" type="dashboard_client" output="screen"/>
+</launch>

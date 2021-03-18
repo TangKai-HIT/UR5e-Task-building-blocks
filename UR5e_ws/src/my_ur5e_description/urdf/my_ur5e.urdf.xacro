@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro"
+       name="my_ur5e" >
+
+  <!-- common stuff -->
+  <xacro:include filename="$(find ur_e_description)/urdf/common.gazebo.xacro" />
+
+  <!-- ur5e -->
+  <xacro:include filename="$(find ur_e_description)/urdf/ur5e.urdf.xacro" />
+
+  <!-- arm -->
+  <xacro:ur5e_robot prefix="" joint_limited="true"
+    shoulder_pan_lower_limit="${-pi}" shoulder_pan_upper_limit="${pi}"
+    shoulder_lift_lower_limit="${-pi}" shoulder_lift_upper_limit="${pi}"
+    elbow_joint_lower_limit="${-pi}" elbow_joint_upper_limit="${pi}"
+    wrist_1_lower_limit="${-pi}" wrist_1_upper_limit="${pi}"
+    wrist_2_lower_limit="${-pi}" wrist_2_upper_limit="${pi}"
+    wrist_3_lower_limit="${-pi}" wrist_3_upper_limit="${pi}"
+  />
+
+  <link name="world" />
+
+  <joint name="world_joint" type="fixed">
+    <parent link="world" />
+    <child link = "base_link" />
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+  </joint>
+
+  <!-- rg2 joint -->
+    <property name="prefix" value="" />
+    <property name="M_PI" value="3.14159265359" />
+    
+    <joint name="rg2_joint" type="fixed">
+      <origin rpy="0 ${-M_PI/2} 0" xyz="-0.062 0 0.0248"/>
+      <parent link="${prefix}ee_link"/>
+      <child link="${prefix}rg2_body_link"/>
+    </joint>
+    <link name="${prefix}rg2_body_link">
+      <visual>
+        <origin rpy="0 ${M_PI/2} 0" xyz="0.051 0.0085 0.0015"/>
+        <geometry>
+          <mesh filename="package://my_ur5e_description/meshes/rg2_gripper/dae_rg2_.dae" scale="0.001 0.001 0.001"/>
+        </geometry>
+        <material name="White">
+          <color rgba="1.0 1.0 1.0 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <origin rpy="0 ${M_PI/2} 0" xyz="0.051 0.0085 0.0015"/>
+        <geometry>
+          <mesh filename="package://my_ur5e_description/meshes/rg2_gripper/rg2_.stl" scale="0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="1"/>
+        <inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1"/>
+      </inertial>
+    </link>
+
+    <joint name="rg2_eef_joint" type="fixed">
+      <origin rpy="0 0 0" xyz="0.195 0.0 0.0"/>
+      <parent link="rg2_body_link"/>
+      <child link="rg2_eef_link"/>
+    </joint>
+    <link name="rg2_eef_link"/>
+
+</robot>
